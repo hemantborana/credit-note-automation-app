@@ -1,0 +1,5 @@
+{
+  "name": "CN Management System",
+  "description": "A comprehensive system to generate, track, and store credit notes. It integrates with Firebase for data management and Google Apps Script for PDF storage in Drive, data logging in Sheets, and automated emailing.",
+  "requestFramePermissions": []
+}

@@ -1,0 +1,271 @@
+/**
+ * CN MANAGEMENT SYSTEM - GOOGLE APPS SCRIPT
+ * 
+ * SETUP INSTRUCTIONS:
+ * 1. Open Google Sheets and create a new spreadsheet. Name it something like "CN_Ledger".
+ * 2. In the sheet, create the following headers in the first row (A1, B1, C1, etc.):
+ *    cn_number, date, party_name, party_address1, party_address2, party_city, period_from, period_to, month, purpose, net_sales, cn_percentage, credit_amount, round_off, final_amount, party_email, party_whatsapp, pdf_link, sent_to_party_at, sent_to_ho_at, sent_to_printer_at, last_resent_to_party_at, last_resent_to_ho_at
+ * 3. Go to Extensions > Apps Script.
+ * 4. Paste this entire script into the editor, replacing any existing code.
+ * 5. The GLOBAL_CONFIG object below has been updated with your provided details.
+ * 6. Click the "Deploy" button -> "New deployment".
+ * 7. In the dialog:
+ *    - Select Type: "Web app".
+ *    - Description: "CN Management System API".
+ *    - Execute as: "Me".
+ *    - Who has access: "Anyone" (This is required for the React app to call it. The script is secure as long as the URL is kept private).
+ * 8. Click "Deploy".
+ * 9. Authorize the script with your Google account when prompted. You may see an "unsafe app" warning; click "Advanced" and "Go to...".
+ * 10. After deployment, copy the "Web app URL".
+ * 11. Paste this URL into `services/googleScriptService.ts` in your React project.
+ * 12. Re-deploy the script anytime you make changes.
+ */
+
+const GLOBAL_CONFIG = {
+  SHEET_ID: '1B5d1bPtlQxb9bCCMlns7a5AeiTXMp69amMkxeYQUb6A',
+  SHEET_NAME: 'Sheet1',
+  DRIVE_FOLDER_ID: '1p1VsaYGhIsgjNFTWJQlFcWfK_CZlJzws',
+  HO_EMAIL: 'hemantpb123@gmail.com',
+  PRINTER_EMAIL: 'hemantpb456@gmail.com',
+};
+
+function respondJSON(data) {
+    return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  try {
+    if (!e.postData || !e.postData.contents) {
+        return respondJSON({ success: false, message: 'Invalid POST request: No data received.' });
+    }
+    const requestData = JSON.parse(e.postData.contents);
+    
+    if (requestData.action === 'processCN') {
+        const { cnData, partyPdfBase64, printerPdfBase64 } = requestData;
+         if (!cnData || !partyPdfBase64 || !printerPdfBase64) {
+            return respondJSON({ success: false, message: 'Missing required data in processCN action.' });
+        }
+        return handleProcessCN(cnData, partyPdfBase64, printerPdfBase64);
+    }
+    
+    if (requestData.action === 'resendCN') {
+        const { cnData, recipient } = requestData;
+        if (!cnData || !recipient) {
+            return respondJSON({ success: false, message: 'Missing required data in resendCN action.' });
+        }
+        return handleResendCN(cnData, recipient);
+    }
+    
+    return respondJSON({ success: false, message: 'Invalid action specified in POST request.' });
+
+  } catch (error) {
+    Logger.log('POST Error:', error.stack);
+    return respondJSON({ success: false, message: 'An unexpected error occurred.', errorDetail: error.toString() });
+  }
+}
+
+function doGet(e) {
+    try {
+        const action = e.parameter.action;
+        if(action === 'getCreditNotes') {
+            return handleGetCreditNotes();
+        }
+        if (!action) {
+            return respondJSON({ success: true, message: 'Google Apps Script endpoint is active. Ready to receive requests from the CN Management application.' });
+        }
+        return respondJSON({ success: false, message: 'Invalid action specified in GET request.' });
+    } catch (error) {
+        Logger.log('GET Error:', error.stack);
+        return respondJSON({ success: false, message: 'An unexpected error occurred.', errorDetail: error.toString() });
+    }
+}
+
+function handleGetCreditNotes() {
+    try {
+        const sheet = SpreadsheetApp.openById(GLOBAL_CONFIG.SHEET_ID).getSheetByName(GLOBAL_CONFIG.SHEET_NAME);
+        if (!sheet) {
+          throw new Error('Sheet not found. Check SHEET_ID and SHEET_NAME.');
+        }
+        const dataRange = sheet.getDataRange();
+        if (dataRange.getNumRows() <= 1) { // Only headers or empty
+          return respondJSON({ success: true, data: [] });
+        }
+        const data = dataRange.getValues();
+        const headers = data.shift() || [];
+        
+        const notes = data.map(function(row) {
+            const note = {};
+            headers.forEach(function(header, i) {
+                note[header] = row[i];
+            });
+            return note;
+        });
+
+        return respondJSON({ success: true, data: notes });
+    } catch(error) {
+         Logger.log('getSheetData Error:', error.stack);
+         throw new Error('Google Sheet Error: Failed to retrieve data. Check SHEET_ID and SHEET_NAME. Details: ' + error.message);
+    }
+}
+
+function handleProcessCN(cnData, partyPdfBase64, printerPdfBase64) {
+  const now = new Date();
+  let pdfLink = '';
+  
+  const partyPdfBlob = Utilities.newBlob(Utilities.base64Decode(partyPdfBase64), 'application/pdf', `Credit_Note_${cnData.cn_number}_Party.pdf`);
+  const printerPdfBlob = Utilities.newBlob(Utilities.base64Decode(printerPdfBase64), 'application/pdf', `Credit_Note_${cnData.cn_number}_Printer.pdf`);
+
+  try {
+    const folder = DriveApp.getFolderById(GLOBAL_CONFIG.DRIVE_FOLDER_ID);
+    const savedFile = folder.createFile(partyPdfBlob);
+    folder.createFile(printerPdfBlob); // Also save printer copy for potential resends
+    pdfLink = savedFile.getUrl();
+  } catch (error) {
+    Logger.log('Drive Error:', error.stack);
+    throw new Error('Drive Error: Could not create PDF in Google Drive. Check DRIVE_FOLDER_ID and permissions. Details: ' + error.message);
+  }
+
+  try {
+    const sheet = SpreadsheetApp.openById(GLOBAL_CONFIG.SHEET_ID).getSheetByName(GLOBAL_CONFIG.SHEET_NAME);
+    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    const newRow = headers.map(header => {
+        switch(header) {
+            case 'pdf_link': return pdfLink;
+            case 'sent_to_party_at':
+            case 'sent_to_ho_at':
+            case 'sent_to_printer_at': return now.toISOString();
+            default: return cnData[header] !== undefined ? cnData[header] : '';
+        }
+    });
+    sheet.appendRow(newRow);
+  } catch (error) {
+    Logger.log('Sheet Append Error:', error.stack);
+    throw new Error('Google Sheet Error: Could not append data. Check SHEET_ID, SHEET_NAME, and header names. Details: ' + error.message);
+  }
+  
+  try {
+    sendPartyEmail(cnData, partyPdfBlob);
+    sendHOEmail(cnData, printerPdfBlob); // Use printer copy for HO
+    sendPrinterEmail(cnData, printerPdfBlob);
+  } catch (error) {
+    Logger.log('Email Error:', error.stack);
+    throw new Error('MailApp Error: Failed to send one or more emails. Data was saved to Sheet/Drive. Details: ' + error.message);
+  }
+
+  return respondJSON({ success: true, message: 'CN Processed Successfully', pdfLink: pdfLink });
+}
+
+function handleResendCN(cnData, recipient) {
+    const now = new Date().toISOString();
+    let pdfBlob;
+    
+    // Step 1: Find the correct PDF in Drive
+    try {
+        const fileName = recipient === 'ho' 
+            ? `Credit_Note_${cnData.cn_number}_Printer.pdf` 
+            : `Credit_Note_${cnData.cn_number}_Party.pdf`;
+
+        const folder = DriveApp.getFolderById(GLOBAL_CONFIG.DRIVE_FOLDER_ID);
+        const files = folder.getFilesByName(fileName);
+        
+        if (!files.hasNext()) {
+            // Fallback for older records: if printer copy not found for HO, send party copy
+            if (recipient === 'ho') {
+                const partyFiles = folder.getFilesByName(`Credit_Note_${cnData.cn_number}_Party.pdf`);
+                if(partyFiles.hasNext()) {
+                    pdfBlob = partyFiles.next().getBlob();
+                } else {
+                    throw new Error(`PDF file not found in Drive: ${fileName}`);
+                }
+            } else {
+                 throw new Error(`PDF file not found in Drive: ${fileName}`);
+            }
+        } else {
+            pdfBlob = files.next().getBlob();
+        }
+    } catch (error) {
+        Logger.log('Resend Drive Error:', error.stack);
+        throw new Error('Drive Error: Could not find original PDF. Details: ' + error.message);
+    }
+    
+    // Step 2: Send the email
+    try {
+        if (recipient === 'party') {
+            sendPartyEmail(cnData, pdfBlob);
+        } else if (recipient === 'ho') {
+            sendHOEmail(cnData, pdfBlob);
+        } else {
+            throw new Error(`Invalid recipient: ${recipient}`);
+        }
+    } catch (error) {
+         Logger.log('Resend Email Error:', error.stack);
+         throw new Error('MailApp Error: Failed to resend email. Details: ' + error.message);
+    }
+    
+    // Step 3: Update the sheet
+    try {
+        const sheet = SpreadsheetApp.openById(GLOBAL_CONFIG.SHEET_ID).getSheetByName(GLOBAL_CONFIG.SHEET_NAME);
+        const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+        const cnNumberCol = headers.indexOf('cn_number') + 1;
+        const columnToUpdateName = recipient === 'party' ? 'last_resent_to_party_at' : 'last_resent_to_ho_at';
+        const columnToUpdateCol = headers.indexOf(columnToUpdateName) + 1;
+
+        if (cnNumberCol === 0 || columnToUpdateCol === 0) {
+            throw new Error('Could not find required columns (cn_number or resend timestamp) in the sheet.');
+        }
+
+        const data = sheet.getDataRange().getValues();
+        for (let i = 1; i < data.length; i++) { // Start from 1 to skip header
+            if (data[i][cnNumberCol - 1] == cnData.cn_number) {
+                sheet.getRange(i + 1, columnToUpdateCol).setValue(now);
+                break;
+            }
+        }
+    } catch (error) {
+        Logger.log('Resend Sheet Update Error:', error.stack);
+        // This is a non-critical error, so we don't throw. The email was sent.
+        return respondJSON({ success: true, message: 'Email resent, but failed to update sheet log.' });
+    }
+
+    return respondJSON({ success: true, message: 'Email resent successfully.' });
+}
+
+// --- Email Functions ---
+function sendPartyEmail(cnData, pdfAttachment) {
+  if (!cnData.party_email) return;
+  const subject = `Credit Note ${cnData.cn_number} - Kambeshwar Agencies`;
+  const htmlBody = getEmailTemplate(cnData.party_name, cnData.cn_number, cnData.final_amount);
+  MailApp.sendEmail({ to: cnData.party_email, subject: subject, htmlBody: htmlBody, attachments: [pdfAttachment] });
+}
+
+function sendHOEmail(cnData, pdfAttachment) {
+    const subject = `[HO COPY] Credit Note Generated: ${cnData.cn_number} for ${cnData.party_name}`;
+    const body = `<p>A new credit note has been generated and sent.</p><p><strong>CN Number:</strong> ${cnData.cn_number}</p><p><strong>Party:</strong> ${cnData.party_name}</p><p><strong>Amount:</strong> Rs. ${Number(cnData.final_amount).toLocaleString('en-IN')}</p><p><strong>Date:</strong> ${cnData.date}</p><p>The PDF copy is attached.</p>`;
+    MailApp.sendEmail({ to: GLOBAL_CONFIG.HO_EMAIL, subject: subject, htmlBody: body, attachments: [pdfAttachment] });
+}
+
+function sendPrinterEmail(cnData, printerPdfAttachment) {
+    MailApp.sendEmail({ to: GLOBAL_CONFIG.PRINTER_EMAIL, subject: '', body: '', attachments: [printerPdfAttachment, printerPdfAttachment.copyBlob().setName(`Credit_Note_${cnData.cn_number}_Printer_Copy2.pdf`)] });
+}
+
+function getEmailTemplate(party_name, cn_number, amount) {
+    const firm_data = {
+        name: 'Kambeshwar Agencies',
+        address: 'Upper Ground Floor, Shop No. 6, Essar Trade Centre, Shashikant Narvekar Road, Morod, Mapusa, North Goa - 403507',
+        mobile: '0832-2266714 / 9422593814 / 9423546561',
+        email: 'hreenkarcreation@gmail.com',
+        gstin: '30AOEPB9968G1ZZ'
+    };
+    const message_body_lines = [
+        `We are pleased to issue Credit Note ${cn_number} in your favor for the amount of Rs. ${Number(amount).toLocaleString('en-IN')}.`,
+        "This credit note has been generated as per the agreed commercial settlement terms for the scheme period mentioned in the attached document.",
+        "Please find the Credit Note attached to this email.",
+        "The credit amount will be adjusted against your future transactions as per the terms and conditions mentioned in the credit note.",
+        "Thank you for your continued business partnership."
+    ];
+    const message_body_html = message_body_lines.join('<br><br>');
+
+    const attachment_html = `<div style="background-color: #1a1a1a; border: 1px solid #d4af37; border-radius: 4px; padding: 25px 30px; margin-bottom: 15px;"><div style="font-size: 12px; color: #d4af37; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: bold;">PDF Document</div><div style="font-size: 18px; color: #ffffff; font-weight: bold; font-family: 'Courier New', monospace; margin-bottom: 8px; word-break: break-word;">Credit_Note_${cn_number}.pdf</div><div style="font-size: 14px; color: #999999;">Attached to this email</div></div>`;
+
+    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Professional Email</title></head><body style="margin: 0; padding: 0; box-sizing: border-box; font-family: 'Georgia', 'Times New Roman', serif; line-height: 1.6; background-color: #f5f5f5; padding: 20px 0;"><table align="center" border="0" cellpadding="0" cellspacing="0" width="900" style="max-width: 900px; width: 100%; margin: 0 auto; background-color: #ffffff; border: 1px solid #e0e0e0;"><tr><td style="height: 4px; background-color: #d4af37;"></td></tr><tr><td style="background-color: #1a1a1a; padding: 50px 40px; text-align: center; border-bottom: 2px solid #d4af37;"><h1 style="font-size: 48px; font-weight: 300; color: #ffffff; letter-spacing: 8px; margin: 0 0 20px 0; text-transform: uppercase; font-family: 'Georgia', serif;">${firm_data.name.toUpperCase()}</h1><div style="width: 120px; height: 1px; background-color: #d4af37; margin: 20px auto;"></div></td></tr><tr><td style="padding: 50px 60px; color: #333333;"><p style="font-size: 16px; color: #333333; margin: 0 0 20px 0; font-style: italic;">Dear ${party_name},</p><p style="font-size: 16px; line-height: 1.8; color: #333333; margin: 0 0 20px 0; text-align: left; white-space: pre-wrap;">${message_body_html}</p><p style="font-size: 13px; color: #888888; letter-spacing: 2px; text-transform: uppercase; margin: 35px 0 20px 0; text-align: center; font-weight: bold;">◆ Enclosed Documents ◆</p>${attachment_html}<div style="margin-top: 40px; padding-top: 25px; border-top: 1px solid #e0e0e0; text-align: left;"><div style="text-align: center; color: #d4af37; margin-bottom: 20px; font-size: 16px;">◆</div><p style="font-size: 15px; color: #666666; margin: 0 0 15px 0; font-style: italic;">With warm regards,</p><p style="font-size: 18px; color: #1a1a1a; font-weight: bold; letter-spacing: 2px; margin: 0 0 10px 0; text-transform: uppercase;">${firm_data.name}</p><p style="font-size: 14px; color: #666666; line-height: 1.6; margin: 0 0 5px 0;">${firm_data.address}</p><p style="font-size: 14px; color: #666666; line-height: 1.6; margin: 0 0 5px 0;">Mobile: ${firm_data.mobile}</p><p style="font-size: 14px; color: #666666; line-height: 1.6; margin: 0 0 5px 0;">Email: ${firm_data.email}</p><p style="font-size: 14px; color: #666666; line-height: 1.6; margin: 0 0 5px 0;">GSTIN: ${firm_data.gstin}</p></div></td></tr><tr><td style="background-color: #f5f5f5; padding: 25px; border-top: 2px solid #d4af37; text-align: center; font-size: 12px; color: #999999; letter-spacing: 1px;"><p style="margin: 0 0 12px 0; text-transform: uppercase; font-weight: bold;">Professional Email System</p><p style="font-size: 11px; color: #aaaaaa; margin: 0;">Developed by <span style="color: #666666; font-weight: bold;">Hemant Borana</span><br>This is an auto-generated mail do not reply.</p></td></tr></table></body></html>`;
+}

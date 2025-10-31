@@ -1,0 +1,22 @@
+{
+  "short_name": "CN Manager",
+  "name": "CN Management System",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/ZR4bHqQy/Copilot-20251031-084652-1.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.ibb.co/Cp33mPxf/Copilot-20251031-084652.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0a0a0a",
+  "background_color": "#0a0a0a"
+}
