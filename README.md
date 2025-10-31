@@ -1,204 +1,225 @@
-# 💼 CN Management System (PWA)
-*A Smart Credit Note Automation Platform for Businesses*
+# 💼 CN Management System  
+*A Progressive Web App (PWA) for Automated Credit Note Management*  
 
 ---
 
-### 📘 Overview
-
-The **CN Management System** is a **Progressive Web App (PWA)** designed to automate and simplify the creation, tracking, and distribution of Credit Notes (CN).  
-It replaces manual paperwork with a cloud-integrated, automated workflow using **React**, **Firebase**, and **Google Apps Script**.
-
-Developed for real business use, the app ensures professional PDF generation, automatic record logging, and instant multi-recipient email dispatch — achieving full operational transparency and efficiency.
+### 🌐 Live Demo  
+[🔗 View Project Overview (HTML)](./portfolio.html)  
 
 ---
 
-### 🧭 Navigation Overview
+### 📘 Overview  
 
-The sidebar includes the following sections:
+The **CN Management System** is a modern, cloud-native **Progressive Web App (PWA)** designed to automate and simplify credit note (CN) generation and distribution workflows.  
+It seamlessly integrates with **Google Workspace tools** — including Google Sheets, Drive, and Gmail — to automate PDF creation, email dispatch, and ledger tracking.  
 
-- **Dashboard**  
-- **Create CN**  
-- **Party Management**  
-- **Upload Party Data**  
-- **Templates**  
-- **Reports & Analytics**  
-- **Audit Log**  
-- **Settings**
+This app was built within **2 days using AI assistance**, designed and tested for a real business use case, and deployed successfully for day-to-day CN management operations.
 
 ---
 
-### 🖥️ Dashboard
+### 🧭 Sidebar Navigation  
 
-- Displays KPIs for the current month:  
-  - **Total CNs**  
-  - **Total Amount**  
-  - **Average CN Amount**
-- Built-in **search and date filter**
-- Lists **10 most recent credit notes**
-- Quick access to detailed CN records
+The app features a clean, responsive sidebar with quick access to all modules:
 
----
-
-### 🧾 Create CN
-
-Create a new credit note with intuitive automation:
-
-| Field | Description |
-|-------|--------------|
-| **Load Template** | Quickly load pre-saved CN details |
-| **Party** | Search from Firebase party list |
-| **CN Number** | Auto-generated from Firebase |
-| **CN Date** | Defaults to current date |
-| **Scheme Period Type** | Choose **Quarter / Month / Custom** |
-| **Scheme From / To** | Auto-filled based on period type |
-| **Month / Period Label** | Auto-generates narration |
-| **Purpose / Narration** | Editable text field |
-| **Type** | Default: “Net Sales Based Incentive” |
-| **Net Sales Amount (Excl. GST)** | Entered manually |
-| **Credit Note %** | Custom percentage input |
-| **Calculation Summary** | Auto-calculates credit, round-off & final amount |
-
-Additional options:
-- **Save as Template**
-- **Preview CN** (modal preview)
-- **Generate & Send CN**  
-  → Generates PDFs, emails all recipients, logs data in Sheets & Firebase.
+- 📊 **Dashboard**  
+- 🧾 **Create CN**  
+- 👥 **Party Management**  
+- 📤 **Upload Party Data**  
+- 🧩 **Templates**  
+- 📈 **Reports & Analytics**  
+- 🕓 **Audit Log**  
+- ⚙️ **Settings**  
 
 ---
 
-### 🧍 Party Management
+### 📊 Dashboard  
 
-- Search parties by **name or city**
-- Add / Edit / Delete party details
-- View issued CNs for a selected party in a modal view  
-- Editable fields: Name, City, Address, Email, Mobile
-- Data stored in **Firebase** and cached via **IndexedDB** for offline access
+Displays key performance indicators (KPIs) and recent CN activity:
 
----
+| KPI | Description |
+|-----|--------------|
+| **Total CNs (This Month)** | Total credit notes issued this month |
+| **Total Amount (This Month)** | Sum of all credit note amounts |
+| **Average Amount (This Month)** | Average CN amount for the period |
 
-### 📤 Upload Party Data
+Includes:
+- 🔍 **Search CN** by number, party name, or purpose  
+- 📅 **Filter by Date Range**  
+- 📋 **10 Most Recent CNs** displayed for quick access  
 
-- Upload `.xlsx` files directly exported from ERP systems  
-- Automatically replaces or updates existing Firebase party data  
-- File format follows pre-defined column mapping
-
----
-
-### 🧩 Templates
-
-- Save recurring CN setups for monthly/quarterly schemes  
-- Template fields: Name, Party, Narration, Credit Note %  
-- Integrated template search and management
+📸 **Screenshot:**  
+![Dashboard](./screenshot/dashboard.png)
 
 ---
 
-### 📊 Reports & Analytics
+### 🧾 Create CN  
 
-Visual analytics provide key business insights:
+A guided form for generating new credit notes efficiently.
 
-- **Credit Amount Issued (Last 12 Months)** → Bar chart  
-- **Number of CNs Issued (Last 12 Months)** → Bar chart  
-- **Top 10 Parties by Total Credit Amount** → Table view
+**Form Fields:**
+- **Party:** Searchable from Firebase  
+- **CN Number:** Auto-generated  
+- **CN Date:** Current date (auto-filled)  
+- **Scheme Period Type:**  
+  - Quarter (auto previous quarter)  
+  - Month (auto previous month)  
+  - Custom (user defined)  
+- **Scheme From / To Dates**  
+- **Purpose / Narration**  
+- **Net Sales Amount (Excl. GST)**  
+- **Credit Note %** (auto calculates credit, round-off, and final amount)  
 
-All charts update dynamically using stored ledger data.
+**Actions:**  
+- Save as Template  
+- Preview CN (Modal Preview)  
+- Generate & Send CN (Triggers automation workflow)
+
+📸 **Screenshot:**  
+![Create CN](./screenshot/create-cn.png)
 
 ---
 
-### 🕵️ Audit Log
+### 👥 Party Management  
 
-Tracks every user action for accountability and audit:
+Manage parties easily with full CRUD functionality.
+
+- 🔍 **Search** by party name or city  
+- ➕ **Add / Edit / Delete** party records  
+- 📋 Clicking a party name opens a modal showing all CNs issued to that party  
+
+📸 **Screenshot:**  
+![Party Management](./screenshot/party-management.png)
+
+---
+
+### 📤 Upload Party Data  
+
+Bulk import parties directly from your ERP system.  
+- Accepts `.xlsx` files in a standard format  
+- Data is synced with **Firebase Realtime Database**  
+- Uses **IndexedDB** for offline caching and instant search  
+
+📸 **Screenshot:**  
+![Upload Party Data](./screenshot/upload-party-data.png)
+
+---
+
+### 🧩 Templates  
+
+Save frequently used configurations for recurring CNs.  
+
+Each template includes:  
+- Template Name  
+- Party  
+- Narration  
+- Credit Note %  
+
+📸 **Screenshot:**  
+![Templates](./screenshot/templates.png)
+
+---
+
+### 📈 Reports & Analytics  
+
+Comprehensive reporting for financial insights:
+
+- **Bar Charts:**
+  - Credit Amount Issued (Last 12 Months)  
+  - Number of CNs Issued (Last 12 Months)
+- **Top 10 Parties** by Total Credit Amount  
+
+📸 **Screenshot:**  
+![Reports](./screenshot/reports.png)
+
+---
+
+### 🕓 Audit Log  
+
+Track every user action for accountability and compliance.
 
 | Timestamp | Action | Details |
 |------------|---------|----------|
-| 31 Oct 2025 | UPLOAD PARTIES | Uploaded 540 parties from file: partymst_82.xls |
-| 31 Oct 2025 | CREATE CN | CN KA-EN-CN21 created for POSHAK RETAIL ₹5,456 |
-| 31 Oct 2025 | CREATE CN | CN KA-EN-CN22 created for POSHAK RETAIL ₹907 |
+| 31 Oct 2025 | UPLOAD PARTIES | Uploaded and replaced 540 parties |
+| 31 Oct 2025 | CREATE CN | Credit Note KA-EN-CN21 created for POSHAK RETAIL ₹5,456 |
 
-Includes date range filter and reset functionality.
-
----
-
-### ⚙️ Application Settings
-
-Used for customizing the company details shown on all PDFs and official documents.
-
-| Field | Description |
-|--------|--------------|
-| Company Name | Business display name |
-| Contact Info | Phone number |
-| Address Line 1 / 2 | Full business address |
-| GSTIN | GST registration number |
-| UDYAM | MSME registration ID |
-| State Code | Applicable state code |
-
-All values are prefilled and editable.  
-*(Test or demo data used in this repository — real business data removed for security.)*
+📸 **Screenshot:**  
+![Audit Log](./screenshot/audit-log.png)
 
 ---
 
-### 🧩 Tech Stack
+### ⚙️ Settings  
+
+Manage company details used across all generated documents.  
+All settings are pre-filled (editable), including:  
+- Company Name  
+- Contact Information  
+- Address Lines  
+- GSTIN / UDYAM / State Code  
+
+📸 **Screenshot:**  
+![Settings](./screenshot/settings.png)
+
+---
+
+### 🧩 Tech Stack  
 
 | Layer | Technology |
 |--------|-------------|
-| **Frontend** | React + TypeScript + Tailwind CSS |
-| **PWA Features** | Service Worker + IndexedDB + Manifest |
-| **PDF Engine** | jsPDF + jsPDF-AutoTable |
-| **Backend (Serverless)** | Google Apps Script |
+| **Frontend** | React (TypeScript) + Tailwind CSS |
+| **Backend** | Google Apps Script |
 | **Database** | Firebase Realtime Database |
 | **File Storage** | Google Drive |
-| **Data Ledger** | Google Sheets |
-| **Email Dispatch** | Gmail (MailApp API) |
+| **Ledger** | Google Sheets |
+| **Email Automation** | Gmail (MailApp Service) |
+| **PDF Generator** | jsPDF + jsPDF-AutoTable |
+| **Hosting** | Deployed as PWA |
 
 ---
 
-### ⚙️ Architecture Workflow
+### 🔁 Workflow Summary  
 
-1. User fills CN form and generates CN  
-2. PDFs (party & printer copies) are generated client-side  
-3. CN data and PDFs are sent to Google Apps Script API  
-4. Apps Script:
-   - Saves PDFs to Google Drive  
-   - Logs data into Google Sheet ledger  
-   - Sends emails to Party, Head Office, and Printer  
-5. Firebase logs the CN creation event for audit  
-6. App confirms success to the user  
+1. User fills the “Create CN” form.  
+2. The app generates PDF copies (party and printer).  
+3. Data and PDFs are sent to **Google Apps Script** backend.  
+4. Backend:  
+   - Saves PDFs to **Google Drive**  
+   - Logs data in **Google Sheets**  
+   - Emails CN to **Party, HO, and Printer**  
+5. Confirmation & Audit Log entry are generated automatically.  
 
----
-
-### 🧱 Setup & Deployment
-
-Setup instructions are available in [`SETUP.md`](SETUP.md).
+📸 **Screenshot:**  
+![System Flow](./screenshot/system-flow.png)
 
 ---
 
-### 🧑‍💻 Author
+### ⚙️ Setup Guide  
+
+For detailed setup instructions, refer to:  
+📄 [SETUP.md](./SETUP.md)
+
+---
+
+### 👨‍💻 Author  
 
 **Hemant Borana**  
-🎓 BCA Final Year Student | 📊 Aspiring Data/Business Analyst | 💼 Entrepreneurial Developer  
-
-> Concept, workflow, and business logic by me.  
-> Developed using **Google AI Studio** in just 2 days.  
-> Currently deployed and in active use within our business operations.
-
----
-
-### 🧠 Highlights
-
-- Fully functional business PWA  
-- Google ecosystem integration  
-- Replaces manual CN workflows  
-- Automated email + PDF + logging pipeline  
-- Designed and implemented in record time
+- 🎓 BCA Final Year Student  
+- 📊 Aspiring Data & Business Analyst  
+- 💼 Managing Brand Operations in Family Business  
+- 🧠 Project ideated and built entirely in **2 days using AI assistance**  
 
 ---
 
-### 🪪 License
+### 🏁 Status  
 
-MIT License — Open for learning and demonstration purposes.
+✅ **In Production** – Currently used internally for real business CN automation.  
+🧱 **Stable Build** – Fully tested and deployed.  
+📱 **Cross-platform** – PWA supports desktop and mobile devices.
 
 ---
 
-### 🗒️ Note
+### 📜 License  
 
-This repository is a **sanitized public version** of a private business project.  
-All API keys, credentials, and real company data have been removed or replaced with demo placeholders.
+This project is proprietary to the developer.  
+Code may be referenced for learning purposes but not used for commercial deployment without permission.
+
+---
