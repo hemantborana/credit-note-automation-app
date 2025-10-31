@@ -282,8 +282,8 @@ export const generatePdf = async (cnData: CreditNoteData, settings: CompanySetti
         "2. The value can only be used for the adjustment of outstanding or future invoices.",
         "3. This Credit Note is issued exclusively to the party named herein and is non-transferable.",
         "4. Any discrepancies must be reported in writing within 7 business days of receipt.",
-        "5. All disputes are subject to the exclusive jurisdiction of the courts in Goa.",
-        "6. Kambeshwar Agencies reserves the right to amend these terms at its sole discretion.",
+        "5. All disputes are subject to the exclusive jurisdiction of the courts in ___.",
+        "6. Company_name reserves the right to amend these terms at its sole discretion.",
     ];
     terms.forEach(term => {
         doc.text(term, leftMargin, yPos);

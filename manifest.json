@@ -3,13 +3,13 @@
   "name": "CN Management System",
   "icons": [
     {
-      "src": "https://i.ibb.co/ZR4bHqQy/Copilot-20251031-084652-1.jpg",
+      "src": "logo.jpg",
       "sizes": "192x192",
       "type": "image/jpeg",
       "purpose": "any maskable"
     },
     {
-      "src": "https://i.ibb.co/Cp33mPxf/Copilot-20251031-084652.jpg",
+      "src": "logo.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any maskable"

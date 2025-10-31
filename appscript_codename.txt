@@ -22,11 +22,11 @@
  */
 
 const GLOBAL_CONFIG = {
-  SHEET_ID: '1B5d1bPtlQxb9bCCMlns7a5AeiTXMp69amMkxeYQUb6A',
+  SHEET_ID: 'google_sheet_ID',
   SHEET_NAME: 'Sheet1',
-  DRIVE_FOLDER_ID: '1p1VsaYGhIsgjNFTWJQlFcWfK_CZlJzws',
-  HO_EMAIL: 'hemantpb123@gmail.com',
-  PRINTER_EMAIL: 'hemantpb456@gmail.com',
+  DRIVE_FOLDER_ID: 'drive_folder_id',
+  HO_EMAIL: 'head_office_mail',
+  PRINTER_EMAIL: 'printer_mail',
 };
 
 function respondJSON(data) {
@@ -250,11 +250,11 @@ function sendPrinterEmail(cnData, printerPdfAttachment) {
 
 function getEmailTemplate(party_name, cn_number, amount) {
     const firm_data = {
-        name: 'Kambeshwar Agencies',
-        address: 'Upper Ground Floor, Shop No. 6, Essar Trade Centre, Shashikant Narvekar Road, Morod, Mapusa, North Goa - 403507',
-        mobile: '0832-2266714 / 9422593814 / 9423546561',
-        email: 'hreenkarcreation@gmail.com',
-        gstin: '30AOEPB9968G1ZZ'
+        name: 'Company_name',
+        address: 'company_address',
+        mobile: 'company_mobile',
+        email: 'company_mail',
+        gstin: 'company_gst'
     };
     const message_body_lines = [
         `We are pleased to issue Credit Note ${cn_number} in your favor for the amount of Rs. ${Number(amount).toLocaleString('en-IN')}.`,

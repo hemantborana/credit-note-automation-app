@@ -1,6 +1,6 @@
 import { CreditNoteData, SheetRowData } from '../types';
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby_b4ao4_Bv_QMgozv9Z8SXMPY4rbDiNxXiwA-9A7vBqfL0OjgDe1KAd8RqcbRqYPoPgw/exec';
+const SCRIPT_URL = 'google_script_url';
 
 interface ProcessPayload {
     cnData: CreditNoteData;

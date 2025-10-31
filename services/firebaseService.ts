@@ -4,14 +4,13 @@ import { Party, CompanySettings, Template, AuditLogEntry } from '../types';
 declare const firebase: any;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD75VN0x6DLmKljSMKOqXgVYFIuU_X7g7c",
-  authDomain: "ka-oms-new.firebaseapp.com",
-  databaseURL: "https://ka-oms-new-default-rtdb.firebaseio.com",
-  projectId: "ka-oms-new",
-  storageBucket: "ka-oms-new.firebasestorage.app",
-  messagingSenderId: "528745660731",
-  appId: "1:528745660731:web:277e4e0ae6382d2378771e",
-  measurementId: "G-B7EEVXQ2TG"
+apiKey: "YOUR_FIREBASE_API_KEY",
+authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+projectId: "YOUR_PROJECT_ID",
+storageBucket: "YOUR_PROJECT_ID.appspot.com",
+messagingSenderId: "YOUR_SENDER_ID",
+appId: "YOUR_APP_ID"
 };
 
 if (!firebase.apps.length) {
