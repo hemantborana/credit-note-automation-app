@@ -48,7 +48,7 @@ Includes:
 - 📋 **10 Most Recent CNs** displayed for quick access  
 
 📸 **Screenshot:**  
-![Dashboard](./screenshot/dashboard.png)
+![Dashboard](./screenshot/dashboard.webp)
 
 ---
 
