@@ -3,12 +3,12 @@
 
 ---
 
-### 🌐 Live Demo  
+## 🌐 Live Demo  
 [🔗 View Project Overview (HTML)](./portfolio.html)  
 
 ---
 
-### 📘 Overview  
+## 📘 Overview  
 
 The **CN Management System** is a modern, cloud-native **Progressive Web App (PWA)** designed to automate and simplify credit note (CN) generation and distribution workflows.  
 It seamlessly integrates with **Google Workspace tools** — including Google Sheets, Drive, and Gmail — to automate PDF creation, email dispatch, and ledger tracking.  
@@ -17,7 +17,7 @@ This app was built within **2 days using AI assistance**, designed and tested fo
 
 ---
 
-### 🧭 Sidebar Navigation  
+## 🧭 Sidebar Navigation  
 
 The app features a clean, responsive sidebar with quick access to all modules:
 
@@ -32,7 +32,7 @@ The app features a clean, responsive sidebar with quick access to all modules:
 
 ---
 
-### 📊 Dashboard  
+## 📊 Dashboard  
 
 Displays key performance indicators (KPIs) and recent CN activity:
 
@@ -42,7 +42,7 @@ Displays key performance indicators (KPIs) and recent CN activity:
 | **Total Amount (This Month)** | Sum of all credit note amounts |
 | **Average Amount (This Month)** | Average CN amount for the period |
 
-Includes:
+**Features:**
 - 🔍 **Search CN** by number, party name, or purpose  
 - 📅 **Filter by Date Range**  
 - 📋 **10 Most Recent CNs** displayed for quick access  
@@ -52,13 +52,13 @@ Includes:
 
 ---
 
-### 🧾 Create CN  
+## 🧾 Create CN  
 
 A guided form for generating new credit notes efficiently.
 
-**Form Fields:**
-- **Party:** Searchable from Firebase  
-- **CN Number:** Auto-generated  
+### Form Fields:
+- **Party:** Searchable dropdown from Firebase  
+- **CN Number:** Auto-generated sequential number  
 - **CN Date:** Current date (auto-filled)  
 - **Scheme Period Type:**  
   - Quarter (auto previous quarter)  
@@ -69,77 +69,119 @@ A guided form for generating new credit notes efficiently.
 - **Net Sales Amount (Excl. GST)**  
 - **Credit Note %** (auto calculates credit, round-off, and final amount)  
 
-**Actions:**  
-- Save as Template  
-- Preview CN (Modal Preview)  
-- Generate & Send CN (Triggers automation workflow)
+### Actions:  
+- 💾 **Save as Template** for recurring CNs  
+- 👁️ **Preview CN** (Modal Preview)  
+- 📤 **Generate & Send CN** (Triggers automation workflow)
 
-📸 **Screenshot:**  
-![Create CN](./screenshot/create-cn1.webp)
-![Create CN](./screenshot/create-cn2.webp)
+📸 **Screenshots:**  
+![Create CN Form](./screenshot/create-cn1.webp)
+![Create CN Calculation](./screenshot/create-cn2.webp)
 
 ---
 
-### 👥 Party Management  
+## 📄 Generated Credit Note Document
+
+The system automatically generates professionally formatted credit notes in PDF format with complete company and party details.
+
+📸 **Sample Credit Note:**  
+![Credit Note Sample](./screenshot/Credit_Note_KA-EN-CN26_Party_page-0001.webp)
+
+---
+
+## 📧 Email Automation
+
+The system automatically sends formatted emails with attached credit notes to:
+- **Party** (Customer)
+- **Head Office** (For records)
+- **Printer** (For physical copy printing)
+
+### Email Features:
+- Professional HTML formatted emails
+- Personalized subject lines with CN number
+- Auto-attached PDF documents
+- Custom message body with scheme details
+
+📸 **Email Screenshots:**  
+![Email Page 1](./screenshot/mail_page-0001.jpg)
+![Email Page 2](./screenshot/mail_page-0002.jpg)
+
+---
+
+## 👥 Party Management  
 
 Manage parties easily with full CRUD functionality.
 
+### Features:
 - 🔍 **Search** by party name or city  
 - ➕ **Add / Edit / Delete** party records  
-- 📋 Clicking a party name opens a modal showing all CNs issued to that party  
+- 📋 Click on party name to view complete CN history  
+- 📊 View party-wise ledger with all issued CNs  
 
-📸 **Screenshot: (Party Management)**  
+📸 **Screenshots:**  
 ![Party Management](./screenshot/party-management1.webp)
-📸 **Screenshot: (Party CN ledger)**
-![Party Management](./screenshot/party-management2.webp)
-
+![Party CN Ledger](./screenshot/party-management2.webp)
 
 ---
 
-### 📤 Upload Party Data  
+## 📤 Upload Party Data  
 
 Bulk import parties directly from your ERP system.  
-- Accepts `.xlsx` files in a standard format  
-- Data is synced with **Firebase Realtime Database**  
-- Uses **IndexedDB** for offline caching and instant search  
+
+### Features:
+- Accepts `.xlsx` files in standard format  
+- Data synced with **Firebase Realtime Database**  
+- Uses **IndexedDB** for offline caching  
+- Instant search functionality  
+- Duplicate detection and replacement  
 
 📸 **Screenshot:**  
 ![Upload Party Data](./screenshot/upload-party-data.webp)
 
 ---
 
-### 🧩 Templates  
+## 🧩 Templates  
 
 Save frequently used configurations for recurring CNs.  
 
-Each template includes:  
+### Template Data Includes:  
 - Template Name  
-- Party  
-- Narration  
-- Credit Note %  
+- Party Selection  
+- Narration / Purpose  
+- Credit Note Percentage  
+- Quick Apply Feature  
 
 📸 **Screenshot:**  
 ![Templates](./screenshot/templates.webp)
 
 ---
 
-### 📈 Reports & Analytics  
+## 📈 Reports & Analytics  
 
-Comprehensive reporting for financial insights:
+Comprehensive reporting for financial insights and business intelligence.
 
+### Available Reports:
 - **Bar Charts:**
   - Credit Amount Issued (Last 12 Months)  
   - Number of CNs Issued (Last 12 Months)
 - **Top 10 Parties** by Total Credit Amount  
+- **Trend Analysis** for credit note patterns  
 
 📸 **Screenshot:**  
 ![Reports](./screenshot/reports.webp)
 
 ---
 
-### 🕓 Audit Log  
+## 🕓 Audit Log  
 
 Track every user action for accountability and compliance.
+
+### Logged Actions:
+- CN Creation
+- Party Management (Add/Edit/Delete)
+- Bulk Party Upload
+- Template Operations
+- Settings Changes
 
 | Timestamp | Action | Details |
 |------------|---------|----------|
@@ -151,79 +193,150 @@ Track every user action for accountability and compliance.
 
 ---
 
-### ⚙️ Settings  
+## ⚙️ Settings  
 
 Manage company details used across all generated documents.  
-All settings are pre-filled (editable), including:  
+
+### Configurable Fields:
 - Company Name  
-- Contact Information  
-- Address Lines  
-- GSTIN / UDYAM / State Code  
+- Contact Information (Phone, Email)  
+- Complete Address (Line 1, Line 2, City, State, PIN)  
+- GSTIN Number  
+- UDYAM Registration  
+- State Code  
+- Bank Details (Optional)  
 
 📸 **Screenshot:**  
 ![Settings](./screenshot/settings.webp)
 
 ---
 
-### 🧩 Tech Stack  
+## 🧩 Tech Stack  
 
 | Layer | Technology |
 |--------|-------------|
 | **Frontend** | React (TypeScript) + Tailwind CSS |
+| **State Management** | React Hooks (useState, useEffect) |
 | **Backend** | Google Apps Script |
 | **Database** | Firebase Realtime Database |
 | **File Storage** | Google Drive |
 | **Ledger** | Google Sheets |
-| **Email Automation** | Gmail (MailApp Service) |
+| **Email Service** | Gmail (MailApp Service) |
 | **PDF Generator** | jsPDF + jsPDF-AutoTable |
+| **Offline Storage** | IndexedDB |
 | **Hosting** | Deployed as PWA |
+| **Authentication** | Firebase Auth (Optional) |
 
 ---
 
-### 🔁 Workflow Summary  
+## 🔁 Workflow Summary  
 
-1. User fills the “Create CN” form.  
-2. The app generates PDF copies (party and printer).  
-3. Data and PDFs are sent to **Google Apps Script** backend.  
-4. Backend:  
-   - Saves PDFs to **Google Drive**  
-   - Logs data in **Google Sheets**  
-   - Emails CN to **Party, HO, and Printer**  
-5. Confirmation & Audit Log entry are generated automatically.  
-
-📸 **Screenshot:**  
-![System Flow](./screenshot/system-flow.png)
+```
+1. User fills the "Create CN" form
+   ↓
+2. App generates PDF copies (Party & Printer versions)
+   ↓
+3. Data and PDFs sent to Google Apps Script backend
+   ↓
+4. Backend Processing:
+   • Saves PDFs to Google Drive (organized by month)
+   • Logs entry in Google Sheets ledger
+   • Sends emails to Party, HO, and Printer with attachments
+   ↓
+5. Confirmation & Audit Log entry generated
+   ↓
+6. Firebase database updated with CN record
+```
 
 ---
 
-### ⚙️ Setup Guide  
+## 🎯 Key Features  
+
+✅ **Automated PDF Generation** - Professional credit notes with company branding  
+✅ **Email Automation** - Auto-send to multiple recipients  
+✅ **Cloud Storage** - Organized file management in Google Drive  
+✅ **Offline Support** - IndexedDB caching for party data  
+✅ **Search & Filter** - Fast search across all CNs and parties  
+✅ **Template System** - Save and reuse configurations  
+✅ **Analytics Dashboard** - Visual insights and reports  
+✅ **Audit Trail** - Complete activity logging  
+✅ **Mobile Responsive** - Works on all devices  
+✅ **PWA Support** - Install as native app  
+
+---
+
+## ⚙️ Setup Guide  
 
 For detailed setup instructions, refer to:  
 📄 [SETUP.md](./SETUP.md)
 
 ---
 
-### 👨‍💻 Author  
+## 📱 Progressive Web App (PWA) Features  
+
+- 📲 **Installable** on desktop and mobile devices  
+- 🔌 **Offline Capability** with cached party data  
+- ⚡ **Fast Loading** with optimized assets  
+- 🔔 **Push Notifications** (can be enabled)  
+- 📱 **Native App Experience** with custom splash screen  
+
+---
+
+## 🔒 Security Features  
+
+- 🔐 Firebase Authentication integration  
+- 🛡️ Role-based access control ready  
+- 📝 Complete audit trail  
+- 🔒 Secure API communication with Google Apps Script  
+- 💾 Encrypted data transmission  
+
+---
+
+## 👨‍💻 Author  
 
 **Hemant Borana**  
 - 🎓 BCA Final Year Student  
 - 📊 Aspiring Data & Business Analyst  
 - 💼 Managing Brand Operations in Family Business  
 - 🧠 Project ideated and built entirely in **2 days using AI assistance**  
+- 🚀 Passionate about automation and business process optimization  
 
 ---
 
-### 🏁 Status  
+## 🏁 Status  
 
-✅ **In Production** – Currently used internally for real business CN automation.  
-🧱 **Stable Build** – Fully tested and deployed.  
-📱 **Cross-platform** – PWA supports desktop and mobile devices.
+✅ **In Production** – Currently used internally for real business CN automation  
+🧱 **Stable Build** – Fully tested and deployed  
+📱 **Cross-platform** – PWA supports desktop and mobile devices  
+🔄 **Actively Maintained** – Regular updates and improvements  
 
 ---
 
-### 📜 License  
+## 🤝 Contributing  
+
+This is a proprietary business application. However, if you're interested in learning or collaborating:  
+- Feel free to reach out for guidance  
+- Suggestions and feedback are welcome  
+- Educational queries are appreciated  
+
+---
+
+## 📜 License  
 
 This project is proprietary to the developer.  
 Code may be referenced for learning purposes but not used for commercial deployment without permission.
 
 ---
+
+## 📞 Contact  
+
+For inquiries or collaboration opportunities:  
+📧 Contact via GitHub profile  
+
+---
+
+**⭐ If this project inspires you, consider starring the repository!**
+
+---
+
+*Built with ❤️ using React, Firebase, and Google Workspace*
