@@ -119,7 +119,7 @@ Each template includes:
 - Credit Note %  
 
 📸 **Screenshot:**  
-![Templates](./screenshot/templates.png)
+![Templates](./screenshot/templates.webp)
 
 ---
 
