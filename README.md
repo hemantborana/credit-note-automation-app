@@ -147,7 +147,7 @@ Track every user action for accountability and compliance.
 | 31 Oct 2025 | CREATE CN | Credit Note KA-EN-CN21 created for POSHAK RETAIL ₹5,456 |
 
 📸 **Screenshot:**  
-![Audit Log](./screenshot/audit-log.png)
+![Audit Log](./screenshot/audit-log.webp)
 
 ---
 
