@@ -133,7 +133,7 @@ Comprehensive reporting for financial insights:
 - **Top 10 Parties** by Total Credit Amount  
 
 📸 **Screenshot:**  
-![Reports](./screenshot/reports.png)
+![Reports](./screenshot/reports.webp)
 
 ---
 
