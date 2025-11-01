@@ -47,6 +47,11 @@ Displays key performance indicators (KPIs) and recent CN activity:
 - 📅 **Filter by Date Range**  
 - 📋 **10 Most Recent CNs** displayed for quick access  
 
+### Quick Actions for Each CN:
+- 📧 **Resend Email** - Send CN to Party or Head Office again
+- 👁️ **View PDF** - Open CN document in new tab
+- 💬 **Share via WhatsApp** - Send formatted notification with secure PDF link
+
 📸 **Screenshot:**  
 ![Dashboard](./screenshot/dashboard.webp)
 
@@ -101,10 +106,44 @@ The system automatically sends formatted emails with attached credit notes to:
 - Personalized subject lines with CN number
 - Auto-attached PDF documents
 - Custom message body with scheme details
+- **Resend capability** from dashboard for Party or Head Office
 
 📸 **Email Screenshots:**  
 ![Email Page 1](./screenshot/mail_page-0001.jpg)
 ![Email Page 2](./screenshot/mail_page-0002.jpg)
+
+---
+
+## 💬 WhatsApp Integration
+
+Share credit notes instantly via WhatsApp with professionally formatted messages.
+
+### WhatsApp Message Format:
+```
+Credit Note Notification
+
+Dear [Party Name],
+
+This is to inform you that a credit note has been processed for your account.
+
+• CN Number: KA-EN-CN21
+• Date: 30/10/2025
+• Amount: ₹5,456
+• Purpose: Volume Based Commercial Settlement - Net Sales Based Incentive
+
+Please access the official PDF document for your records using the secure link below:
+https://drive.google.com/file/d/[pdf_link]
+
+Thank you,
+Kambeshwar Agencies
+```
+
+### Features:
+- 📱 **One-Click Sharing** - Opens WhatsApp with pre-filled message
+- 🔗 **Secure Google Drive Links** - Direct access to CN PDF
+- 💼 **Professional Format** - Branded message template
+- 📋 **Complete Details** - All essential CN information included
+- 🚀 **Quick Access** - Available directly from dashboard
 
 ---
 
@@ -183,7 +222,6 @@ Track every user action for accountability and compliance.
 - Template Operations
 - Settings Changes
 
-
 📸 **Screenshot:**  
 ![Audit Log](./screenshot/audit-log.webp)
 
@@ -220,6 +258,7 @@ Manage company details used across all generated documents.
 | **Email Service** | Gmail (MailApp Service) |
 | **PDF Generator** | jsPDF + jsPDF-AutoTable |
 | **Offline Storage** | IndexedDB |
+| **Messaging** | WhatsApp Web API Integration |
 | **Hosting** | Deployed as PWA |
 
 ---
@@ -241,6 +280,8 @@ Manage company details used across all generated documents.
 5. Confirmation & Audit Log entry generated
    ↓
 6. Firebase database updated with CN record
+   ↓
+7. Optional: Share via WhatsApp or resend emails from dashboard
 ```
 
 ---
@@ -249,6 +290,9 @@ Manage company details used across all generated documents.
 
 ✅ **Automated PDF Generation** - Professional credit notes with company branding  
 ✅ **Email Automation** - Auto-send to multiple recipients  
+✅ **WhatsApp Integration** - Share CNs via WhatsApp with secure links  
+✅ **Resend Capability** - Resend emails to Party or HO from dashboard  
+✅ **Quick PDF Access** - View CN documents instantly from dashboard  
 ✅ **Cloud Storage** - Organized file management in Google Drive  
 ✅ **Offline Support** - IndexedDB caching for party data  
 ✅ **Search & Filter** - Fast search across all CNs and parties  
@@ -273,8 +317,6 @@ For detailed setup instructions, refer to:
 - 🔌 **Offline Capability** with cached party data  
 - ⚡ **Fast Loading** with optimized assets 
 - 📱 **Native App Experience** with custom splash screen  
-
-
 
 ---
 
