@@ -89,7 +89,9 @@ Manage parties easily with full CRUD functionality.
 - 📋 Clicking a party name opens a modal showing all CNs issued to that party  
 
 📸 **Screenshot:**  
-![Party Management](./screenshot/party-management.png)
+![Party Management](./screenshot/party-management1.webp)
+![Party Management](./screenshot/party-management2.webp)
+
 
 ---
 
