@@ -75,7 +75,8 @@ A guided form for generating new credit notes efficiently.
 - Generate & Send CN (Triggers automation workflow)
 
 📸 **Screenshot:**  
-![Create CN](./screenshot/create-cn.png)
+![Create CN](./screenshot/create-cn1.webp)
+![Create CN](./screenshot/create-cn2.webp)
 
 ---
 
