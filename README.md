@@ -104,7 +104,7 @@ Bulk import parties directly from your ERP system.
 - Uses **IndexedDB** for offline caching and instant search  
 
 📸 **Screenshot:**  
-![Upload Party Data](./screenshot/upload-party-data.png)
+![Upload Party Data](./screenshot/upload-party-data.webp)
 
 ---
 
