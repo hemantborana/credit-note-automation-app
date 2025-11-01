@@ -183,10 +183,6 @@ Track every user action for accountability and compliance.
 - Template Operations
 - Settings Changes
 
-| Timestamp | Action | Details |
-|------------|---------|----------|
-| 31 Oct 2025 | UPLOAD PARTIES | Uploaded and replaced 540 parties |
-| 31 Oct 2025 | CREATE CN | Credit Note KA-EN-CN21 created for POSHAK RETAIL ₹5,456 |
 
 📸 **Screenshot:**  
 ![Audit Log](./screenshot/audit-log.webp)
@@ -225,7 +221,6 @@ Manage company details used across all generated documents.
 | **PDF Generator** | jsPDF + jsPDF-AutoTable |
 | **Offline Storage** | IndexedDB |
 | **Hosting** | Deployed as PWA |
-| **Authentication** | Firebase Auth (Optional) |
 
 ---
 
@@ -276,19 +271,10 @@ For detailed setup instructions, refer to:
 
 - 📲 **Installable** on desktop and mobile devices  
 - 🔌 **Offline Capability** with cached party data  
-- ⚡ **Fast Loading** with optimized assets  
-- 🔔 **Push Notifications** (can be enabled)  
+- ⚡ **Fast Loading** with optimized assets 
 - 📱 **Native App Experience** with custom splash screen  
 
----
 
-## 🔒 Security Features  
-
-- 🔐 Firebase Authentication integration  
-- 🛡️ Role-based access control ready  
-- 📝 Complete audit trail  
-- 🔒 Secure API communication with Google Apps Script  
-- 💾 Encrypted data transmission  
 
 ---
 
@@ -331,7 +317,9 @@ Code may be referenced for learning purposes but not used for commercial deploym
 ## 📞 Contact  
 
 For inquiries or collaboration opportunities:  
-📧 Contact via GitHub profile  
+📧 **Email:** hemantpb123@gmail.com  
+📱 **Phone:** +91 9284494154  
+💼 **GitHub:** Contact via GitHub profile  
 
 ---
 
