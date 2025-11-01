@@ -161,7 +161,7 @@ All settings are pre-filled (editable), including:
 - GSTIN / UDYAM / State Code  
 
 📸 **Screenshot:**  
-![Settings](./screenshot/settings.png)
+![Settings](./screenshot/settings.webp)
 
 ---
 
