@@ -88,8 +88,9 @@ Manage parties easily with full CRUD functionality.
 - ➕ **Add / Edit / Delete** party records  
 - 📋 Clicking a party name opens a modal showing all CNs issued to that party  
 
-📸 **Screenshot:**  
+📸 **Screenshot: (Party Management)**  
 ![Party Management](./screenshot/party-management1.webp)
+📸 **Screenshot: (Party CN ledger)**
 ![Party Management](./screenshot/party-management2.webp)
 
 
