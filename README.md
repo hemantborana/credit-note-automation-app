@@ -4,7 +4,7 @@
 ---
 
 ## 🌐 Live Demo  
-[🔗 View Project Overview (HTML)](./portfolio.html)  
+[🔗 View Project Overview (HTML)](./project.html)  
 
 ---
 
