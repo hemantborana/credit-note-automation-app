@@ -4,7 +4,7 @@
 ---
 
 ## 🌐 Live Demo  
-[🔗 View Project Overview (HTML)](./project.html)  
+[🔗 View Project Overview (HTML)](https://hemantborana.github.io/credit-note-automation-app/project.html)  
 
 ---
 
