@@ -337,45 +337,168 @@
         }
 
         /* Screenshots */
-        .screenshots-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
+        /* Screenshots */
+.screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
 
-        .screenshot-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
+.screenshot-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    cursor: pointer;
+}
 
-        .screenshot-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+.screenshot-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
 
-        .screenshot-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
+.screenshot-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: #f8fafc;
+    transition: transform 0.3s;
+    display: block;
+}
 
-        .screenshot-card .screenshot-info {
-            padding: 1.5rem;
-        }
+.screenshot-card:hover img {
+    transform: scale(1.02);
+}
 
-        .screenshot-card h4 {
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-        }
+.screenshot-card .screenshot-info {
+    padding: 1.5rem;
+}
 
-        .screenshot-card p {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
+.screenshot-card h4 {
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.screenshot-card p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Image Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: auto;
+    height: auto;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.modal-img {
+    width: auto;
+    height: auto;
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    display: block;
+    background: #000000;
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+    z-index: 2001;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+    z-index: 2001;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal-nav:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.modal-prev {
+    left: 20px;
+}
+
+.modal-next {
+    right: 20px;
+}
+
+.modal-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    font-size: 1.2rem;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 0 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
         /* CTA Section */
         .cta-section {
@@ -507,48 +630,76 @@
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
 
-            .hero p {
-                font-size: 1rem;
-            }
+    .hero p {
+        font-size: 1rem;
+    }
 
-            nav ul {
-                display: none;
-            }
+    nav ul {
+        display: none;
+    }
 
-            .mobile-menu-btn {
-                display: block;
-            }
+    .mobile-menu-btn {
+        display: block;
+    }
 
-            .section-header h2 {
-                font-size: 2rem;
-            }
+    .section-header h2 {
+        font-size: 2rem;
+    }
 
-            .stats-grid,
-            .features-grid,
-            .tech-stack {
-                grid-template-columns: 1fr;
-            }
+    .stats-grid,
+    .features-grid,
+    .tech-stack {
+        grid-template-columns: 1fr;
+    }
 
-            .workflow-step {
-                flex-direction: column;
-                text-align: center;
-            }
+    .workflow-step {
+        flex-direction: column;
+        text-align: center;
+    }
 
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
 
-            .btn {
-                width: 100%;
-                max-width: 300px;
-            }
-        }
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+     .modal-nav {
+        width: 45px;
+        height: 45px;
+        font-size: 1.5rem;
+    }
+
+    .modal-close {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+        top: 15px;
+        right: 15px;
+    }
+
+    .modal-caption {
+        font-size: 1rem;
+        margin: 0 15px;
+        padding: 12px 15px;
+    }
+
+    .modal-prev {
+        left: 15px;
+    }
+
+    .modal-next {
+        right: 15px;
+    }
+}
 
         /* Smooth Scroll */
         html {
@@ -856,6 +1007,17 @@
         </div>
     </section>
 
+    <!-- Image Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <span class="modal-nav modal-prev" id="modalPrev">&#10094;</span>
+            <img class="modal-img" id="modalImg" src="" alt="">
+            <span class="modal-nav modal-next" id="modalNext">&#10095;</span>
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+    </div>
+
     <!-- Integration Features -->
     <section>
         <div class="container">
@@ -1105,6 +1267,107 @@
     </footer>
 
     <script>
+        // Image Modal Functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalCaption = document.getElementById('modalCaption');
+        const modalClose = document.getElementById('modalClose');
+        const modalPrev = document.getElementById('modalPrev');
+        const modalNext = document.getElementById('modalNext');
+        
+        // Get all screenshot cards
+        const screenshotCards = document.querySelectorAll('.screenshot-card');
+        let currentImageIndex = 0;
+        const images = [];
+
+        // Collect all images and their captions
+        screenshotCards.forEach((card, index) => {
+            const img = card.querySelector('img');
+            const title = card.querySelector('h4').textContent;
+            const description = card.querySelector('p').textContent;
+            
+            if (img && img.src) {
+                images.push({
+                    src: img.src,
+                    title: title,
+                    description: description
+                });
+                
+                // Add click event to each screenshot card
+                card.addEventListener('click', () => {
+                    openModal(index);
+                });
+            }
+        });
+
+        // Open modal with specific image
+        function openModal(index) {
+            currentImageIndex = index;
+            updateModal();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        // Update modal content
+        function updateModal() {
+            if (images.length > 0) {
+                modalImg.src = images[currentImageIndex].src;
+                modalCaption.innerHTML = `<strong>${images[currentImageIndex].title}</strong><br>${images[currentImageIndex].description}`;
+                
+                // Show/hide navigation buttons
+                modalPrev.style.display = currentImageIndex > 0 ? 'flex' : 'none';
+                modalNext.style.display = currentImageIndex < images.length - 1 ? 'flex' : 'none';
+            }
+        }
+
+        // Close modal
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        });
+
+        // Navigate to previous image
+        modalPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+                updateModal();
+            }
+        });
+
+        // Navigate to next image
+        modalNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentImageIndex < images.length - 1) {
+                currentImageIndex++;
+                updateModal();
+            }
+        });
+
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = ''; // Restore scrolling
+                } else if (e.key === 'ArrowLeft' && currentImageIndex > 0) {
+                    currentImageIndex--;
+                    updateModal();
+                } else if (e.key === 'ArrowRight' && currentImageIndex < images.length - 1) {
+                    currentImageIndex++;
+                    updateModal();
+                }
+            }
+        });
+
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
